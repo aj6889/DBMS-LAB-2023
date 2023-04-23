@@ -1,0 +1,239 @@
+(Q1)
+SQL> CREATE TABLE PERSON(ID INT NOT NULL, LASTNAME VARCHAR(255) NOT NULL, FIRSTNAME VARCHAR(255) NOT NULL, AGE INT);
+
+Table created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> DESC PERSON;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ ID                                        NOT NULL NUMBER(38)
+ LASTNAME                                  NOT NULL VARCHAR2(255)
+ FIRSTNAME                                 NOT NULL VARCHAR2(255)
+ AGE                                                NUMBER(38)
+
+____________________________________________________________________________________________________________________________________
+(Q2)
+SQL> CREATE TABLE DEPT( DEPT_NO NUMBER(5) NOT NULL, DNAME VARCHAR(10) NOT NULL, DLOC VARCHAR(10) NOT NULL,
+  2  PRIMARY KEY (DEPT_NO));
+
+Table created.
+
+SQL> DESC DEPT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NO                                   NOT NULL NUMBER(5)
+ DNAME                                     NOT NULL VARCHAR2(10)
+ DLOC                                      NOT NULL VARCHAR2(10)
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> DESCRIBE DEPT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NO                                   NOT NULL NUMBER(5)
+ DNAME                                     NOT NULL VARCHAR2(10)
+ DLOC                                      NOT NULL VARCHAR2(10)
+
+__________________________________________________________________________________________________________________
+(Q3)
+SQL> CREATE TABLE EMP(EMP_NO NUMBER(5) PRIMARY KEY,
+  2  ENAME VARCHAR(10), JOB VARCHAR(10),
+  3  MANAGER_NAME VARCHAR(10) DEFAULT 'MR.K.RAM',
+  4  HIRE_DATE DATE,
+  5  SALARY NUMBER(30), COMMISSION NUMBER(30), DEP_NO NUMBER(5));
+
+Table created.
+
+SQL> DESC EMP;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ EMP_NO                                    NOT NULL NUMBER(5)
+ ENAME                                              VARCHAR2(10)
+ JOB                                                VARCHAR2(10)
+ MANAGER_NAME                                       VARCHAR2(10)
+ HIRE_DATE                                          DATE
+ SALARY                                             NUMBER(30)
+ COMMISSION                                         NUMBER(30)
+ DEP_NO                                             NUMBER(5)
+
+SQL> COMMIT;
+
+Commit complete.
+___________________________________________________________________________________________________________________
+(Q4)
+SQL> ALTER TABLE DEPT ADD CONSTRAINT DNAME_UNI UNIQUE (DNAME);
+
+Table altered.
+
+SQL> DESC DEPT;
+ Name                                      Null?    Type
+ ----------------------------------------- -------- ----------------------------
+ DEPT_NO                                   NOT NULL NUMBER(5)
+ DNAME                                     NOT NULL VARCHAR2(10)
+ DLOC                                      NOT NULL VARCHAR2(10)
+
+_____________________________________________________________________________________________________________________
+(Q5)
+SQL> ALTER TABLE EMP ADD CHECK (SALARY>10000 AND SALARY <20000);
+
+Table altered.
+
+SQL> COMMIT;
+
+Commit complete.
+__________________________________________________________________________________________________________________________
+(Q6)
+SQL> ALTER TABLE EMP ADD FOREIGN KEY(DEP_NO) REFERENCES DEPT(DEPT_NO);
+
+Table altered.
+
+SQL> COMMIT;
+
+Commit complete.
+__________________________________________________________________________________________________________________________
+(Q7)
+SQL> ALTER TABLE EMP ADD CHECK (COMMISSION < (0.1*SALARY));
+
+Table altered.
+
+SQL> COMMIT;
+
+Commit complete.
+___________________________________________________________________________________________________________________________
+(Q8) I
+
+SQL> INSERT INTO DEPT VALUES(&DEPT_NO,'&DNAME','&DLOC');
+Enter value for dept_no: 100
+Enter value for dname: CSE
+Enter value for dloc: TP
+old   1: INSERT INTO DEPT VALUES(&DEPT_NO,'&DNAME','&DLOC')
+new   1: INSERT INTO DEPT VALUES(100,'CSE','TP')
+
+1 row created.
+
+SQL> /
+Enter value for dept_no: 110
+Enter value for dname: MECH
+Enter value for dloc: MBLOCK
+old   1: INSERT INTO DEPT VALUES(&DEPT_NO,'&DNAME','&DLOC')
+new   1: INSERT INTO DEPT VALUES(110,'MECH','MBLOCK')
+
+1 row created.
+
+SQL> /
+Enter value for dept_no: 120
+Enter value for dname: CIVIL
+Enter value for dloc: CBLOCK
+old   1: INSERT INTO DEPT VALUES(&DEPT_NO,'&DNAME','&DLOC')
+new   1: INSERT INTO DEPT VALUES(120,'CIVIL','CBLOCK')
+
+1 row created.
+
+SQL> SELECT * FROM DEPT;
+
+   DEPT_NO DNAME      DLOC
+---------- ---------- ----------
+       100 CSE        TP
+       110 MECH       MBLOCK
+       120 CIVIL      CBLOCK
+
+__________________________________________________________________________________________________________
+q8 iI
+
+SQL> INSERT INTO EMP VALUES(&EMP_NO, '&ENAME','&JOB','&MANAGER_NAME','&HIRE_DATE',&SALARY, &COMMISSION , &DEP_NO);
+Enter value for emp_no: 1
+Enter value for ename: AADARSH
+Enter value for job: SDE
+Enter value for manager_name:
+Enter value for hire_date: 12-OCT-2020
+Enter value for salary: 15000
+Enter value for commission: 1400
+Enter value for dep_no: 100
+old   1: INSERT INTO EMP VALUES(&EMP_NO, '&ENAME','&JOB','&MANAGER_NAME','&HIRE_DATE',&SALARY, &COMMISSION , &DEP_NO)
+new   1: INSERT INTO EMP VALUES(1, 'AADARSH','SDE','','12-OCT-2020',15000, 1400 , 100)
+
+1 row created.
+
+SQL> /
+Enter value for emp_no: 2
+Enter value for ename: VRAJ
+Enter value for job: MECHI
+Enter value for manager_name: HARISH
+Enter value for hire_date: 13-OCT-2020
+Enter value for salary: 12000
+Enter value for commission: 1600
+Enter value for dep_no: 110
+old   1: INSERT INTO EMP VALUES(&EMP_NO, '&ENAME','&JOB','&MANAGER_NAME','&HIRE_DATE',&SALARY, &COMMISSION , &DEP_NO)
+new   1: INSERT INTO EMP VALUES(2, 'VRAJ','MECHI','HARISH','13-OCT-2020',12000, 1600 , 110)
+INSERT INTO EMP VALUES(2, 'VRAJ','MECHI','HARISH','13-OCT-2020',12000, 1600 , 110)
+*
+ERROR at line 1:
+ORA-02290: check constraint (RA2011026010061.SYS_C006467) violated
+
+
+SQL> /
+Enter value for emp_no: 2
+Enter value for ename: VRAJ
+Enter value for job: MECHI
+Enter value for manager_name: HARISH
+Enter value for hire_date: 13-OCT-2020
+Enter value for salary: 12000
+Enter value for commission: 1100
+Enter value for dep_no: 110
+old   1: INSERT INTO EMP VALUES(&EMP_NO, '&ENAME','&JOB','&MANAGER_NAME','&HIRE_DATE',&SALARY, &COMMISSION , &DEP_NO)
+new   1: INSERT INTO EMP VALUES(2, 'VRAJ','MECHI','HARISH','13-OCT-2020',12000, 1100 , 110)
+
+1 row created.
+
+SQL> SELECT * FROM EMP;
+
+    EMP_NO ENAME      JOB        MANAGER_NA HIRE_DATE     SALARY COMMISSION
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEP_NO
+----------
+         1 AADARSH    SDE                   12-OCT-20      15000       1400
+       100
+
+         2 VRAJ       MECHI      HARISH     13-OCT-20      12000       1100
+       110
+_____________________________________________________________________________________________________________________________________
+Q9)
+SQL> INSERT INTO EMP VALUES(&EMP_NO, '&ENAME','&JOB','&MANAGER_NAME','&HIRE_DATE',&SALARY, &COMMISSION , &DEP_NO);
+Enter value for emp_no: 3
+Enter value for ename: HARSHIT
+Enter value for job: WORKER
+Enter value for manager_name: MR.K.RAM
+Enter value for hire_date: 14-OCT-2020
+Enter value for salary: 13000
+Enter value for commission: 1200
+Enter value for dep_no: 130
+old   1: INSERT INTO EMP VALUES(&EMP_NO, '&ENAME','&JOB','&MANAGER_NAME','&HIRE_DATE',&SALARY, &COMMISSION , &DEP_NO)
+new   1: INSERT INTO EMP VALUES(3, 'HARSHIT','WORKER','MR.K.RAM','14-OCT-2020',13000, 1200 , 130)
+INSERT INTO EMP VALUES(3, 'HARSHIT','WORKER','MR.K.RAM','14-OCT-2020',13000, 1200 , 130)
+*
+ERROR at line 1:
+ORA-02291: integrity constraint (RA2011026010061.SYS_C006465) violated - parent
+key not found
+
+
+SQL> COMMIT;
+
+Commit complete.
+_______________________________________________________________________________________________________________________________________
+
+Q10)
+SQL> ALTER TABLE EMP DROP PRIMARY KEY;
+
+Table altered.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>
