@@ -1,0 +1,284 @@
+
+SQL> SELECT * FROM EMP1;
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7876 ADAMS      CLERK            7788 23-MAY-87       5000          0
+        20
+
+      7934 MILLER     CLERK            7886 21-JUN-89       6000          0
+        20
+
+      7685 TURNER     ANALYST          3456 21-JUN-78       3000          0
+        20
+
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      4567 ERIC       SALESMAN         5678 12-MAY-89       3000          0
+        30
+
+      7369 SMITH      CLERK            7902 17-DEC-80        800          0
+        20
+
+      7499 ALLEN      SALESMAN         7698 20-FEB-81       1600        300
+        30
+
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7521 WARD       SALESMAN         7698 22-FEB-81       1250        500
+        30
+
+      7566 JONES      MANAGER          7839 02-APR-81       2975          0
+        20
+
+      7654 MARTIN     SALESMAN         7698 28-SEP-81       1250       1400
+        30
+
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7698 BLAKE      MANAGER          7839 01-MAY-81       2850          0
+        30
+
+      7782 SCOTT      ANALYST          7566 19-APR-87       3000          0
+        20
+
+      7902 FORD       ANALYST          7566 03-DEC-81       3000          0
+        20
+
+
+12 rows selected.
+
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        40 OPERATIONS BOSTON
+        50 MANUFAC    BOSTON
+        30 SALES      CHICAGO
+_______________________________________________________________________________________________________________________
+q1)
+SQL> CREATE VIEW EMPV10 AS SELECT EMPNO,ENAME,JOB FROM EMP1 WHERE DEPTNO=20;
+
+View created.
+
+SQL> SELECT * FROM EMPV10;
+
+     EMPNO ENAME      JOB
+---------- ---------- ----------
+      7876 ADAMS      CLERK
+      7934 MILLER     CLERK
+      7685 TURNER     ANALYST
+      7369 SMITH      CLERK
+      7566 JONES      MANAGER
+      7782 SCOTT      ANALYST
+      7902 FORD       ANALYST
+
+7 rows selected.
+____________________________________________________________________________________________________________________________
+q2)
+
+SQL> CREATE VIEW EMPV30 AS SELECT EMPNO AS "EMPNUM", ENAME AS "EMPNAME", SAL AS "SALARY" FROM EMP1 WHERE DEPTNO = 30;
+
+View created.
+
+SQL> SELECT * FROM EMPV30;
+
+    EMPNUM EMPNAME        SALARY
+---------- ---------- ----------
+      4567 ERIC             3000
+      7499 ALLEN            1600
+      7521 WARD             1250
+      7654 MARTIN           1250
+      7698 BLAKE            2850
+_________________________________________________________________________________________________________________________________
+Q3)
+
+_________________________________________________________________________________________________________________________________
+Q4)
+SQL> CREATE OR REPLACE VIEW EMPV10 AS SELECT EMPNO AS "EMPOLYEE NUMBER", 
+	ENAME AS "EMPLOYEE NAME", 
+	JOB AS "JOBTITLE", 
+	SAL AS "SALARY" FROM EMP1 WHERE DEPTNO = 20;
+
+View created.
+
+SQL> SELECT * FROM EMPV10;
+
+EMPOLYEE NUMBER EMPLOYEE N JOBTITLE       SALARY
+--------------- ---------- ---------- ----------
+           7876 ADAMS      CLERK            5000
+           7934 MILLER     CLERK            6000
+           7685 TURNER     ANALYST          3000
+           7369 SMITH      CLERK             800
+           7566 JONES      MANAGER          2975
+           7782 SCOTT      ANALYST          3000
+           7902 FORD       ANALYST          3000
+
+7 rows selected.
+_____________________________________________________________________________________________________________________________________
+Q5)
+SQL> CREATE VIEW PAY AS SELECT ENAME, SAL/12 AS MONTHLY_SAL, SAL*12 AS ANNUAL_SAL, DEPTNO FROM EMP1;
+
+View created.
+
+
+SQL> SELECT * FROM PAY;
+
+ENAME      MONTHLY_SAL ANNUAL_SAL     DEPTNO
+---------- ----------- ---------- ----------
+ADAMS       416.666667      60000         20
+MILLER             500      72000         20
+TURNER             250      36000         20
+ERIC               250      36000         30
+SMITH       66.6666667       9600         20
+ALLEN       133.333333      19200         30
+WARD        104.166667      15000         30
+JONES       247.916667      35700         20
+MARTIN      104.166667      15000         30
+BLAKE            237.5      34200         30
+SCOTT              250      36000         20
+
+ENAME      MONTHLY_SAL ANNUAL_SAL     DEPTNO
+---------- ----------- ---------- ----------
+FORD               250      36000         20
+
+12 rows selected.
+
+___________________________________________________________________________________________________
+q6)
+SQL> CREATE VIEW DEPT_STAT AS SELECT D.DEPTNO, D.DNAME, MIN(E.SAL) AS MIN_SAL, 
+MAX(E.SAL) AS MAX_SAL, 
+SUM(E.SAL) AS TOTAL 
+FROM EMP1 E JOIN DEPT1 D 
+ON E.DEPTNO = D.DEPTNO GROUP BY D.DEPTNO,D.DNAME;
+
+View created.
+
+SQL> SELECT * FROM DEPT_STAT;
+
+    DEPTNO DNAME         MIN_SAL    MAX_SAL      TOTAL
+---------- ---------- ---------- ---------- ----------
+        20 RESEARCH          800       6000      23775
+        30 SALES            1250       3000       9950
+
+_______________________________________________________________________________________________________________
+q7)
+SQL> CREATE OR REPLACE VIEW EMPV20 AS SELECT * FROM EMP1 WHERE DEPTNO=20 WITH CHECK OPTION CONSTRAINT EMPV20_CK;
+
+View created.
+
+SQL> SELECT * FROM EMPV20;
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7876 ADAMS      CLERK            7788 23-MAY-87       5000          0
+        20
+
+      7934 MILLER     CLERK            7886 21-JUN-89       6000          0
+        20
+
+      7685 TURNER     ANALYST          3456 21-JUN-78       3000          0
+        20
+
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7369 SMITH      CLERK            7902 17-DEC-80        800          0
+        20
+
+      7566 JONES      MANAGER          7839 02-APR-81       2975          0
+        20
+
+      7782 SCOTT      ANALYST          7566 19-APR-87       3000          0
+        20
+
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7902 FORD       ANALYST          7566 03-DEC-81       3000          0
+        20
+
+
+7 rows selected.
+________________________________________________________________________________________________________
+Q8)SQL> CREATE VIEW EMPV10 AS SELECT * FROM EMP1 WHERE DEPTNO = 10 WITH READ ONLY;
+
+View created.
+
+SQL> SELECT *FROM EMPV10;
+
+no rows selected
+
+SQL> CREATE VIEW EMPV10 AS SELECT * FROM EMP1 WHERE DEPTNO = 30 WITH READ ONLY;
+CREATE VIEW EMPV10 AS SELECT * FROM EMP1 WHERE DEPTNO = 30 WITH READ ONLY
+            *
+ERROR at line 1:
+ORA-00955: name is already used by an existing object
+
+
+SQL> DEOP VIEW EMPV10;
+SP2-0734: unknown command beginning "DEOP VIEW ..." - rest of line ignored.
+SQL> DROP VIEW EMPV10;
+
+View dropped.
+
+SQL> CREATE VIEW EMPV10 AS SELECT * FROM EMP1 WHERE DEPTNO = 30 WITH READ ONLY;
+
+View created.
+
+SQL> SELECT * FROM EMPV10;
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      4567 ERIC       SALESMAN         5678 12-MAY-89       3000          0
+        30
+
+      7499 ALLEN      SALESMAN         7698 20-FEB-81       1600        300
+        30
+
+      7521 WARD       SALESMAN         7698 22-FEB-81       1250        500
+        30
+
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7654 MARTIN     SALESMAN         7698 28-SEP-81       1250       1400
+        30
+
+      7698 BLAKE      MANAGER          7839 01-MAY-81       2850          0
+        30
+______________________________________________________________________________________________________
+Q10)
+SQL> DROP VIEW EMPV20;
+
+View dropped.
+
+SQL> SELECT * FROM EMPV20;
+SELECT * FROM EMPV20
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+______________________________________________________________________________________________________

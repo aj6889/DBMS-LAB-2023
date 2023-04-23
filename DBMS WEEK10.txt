@@ -1,0 +1,146 @@
+SQL> SET SERVEROUTPUT ON;
+____________________________________________________________________________________________________________
+q1)
+
+SQL> DECLARE F number:=&Fahrenheit;
+  2  C number:=&Celsius;
+  3  RESULT number;
+  4  BEGIN RESULT:=(F-32)*5/9;
+  5  dbms_output.put_line('Fahrenheit value entered '||F||' equal to celsius :'||' '||round(RESULT));
+  6  RESULT:=9/5*C+32;
+  7  dbms_output.put_line('Celsius value entered '||C||' equal to fahrenheit :'||' '||RESULT);
+  8  END;
+  9  /
+Enter value for fahrenheit: 98
+old   1: DECLARE F number:=&Fahrenheit;
+new   1: DECLARE F number:=98;
+Enter value for celsius: 36
+old   2: C number:=&Celsius;
+new   2: C number:=36;
+Fahrenheit value entered 98 equal to celsius : 37
+Celsius value entered 36 equal to fahrenheit : 96.8
+
+PL/SQL procedure successfully completed.
+_________________________________________________________________________________________________________________
+Q2)
+SQL> -- Display all even number from 1 to n
+SQL> DECLARE
+  2  -- Declare variable num
+  3  num NUMBER(3) := 2;
+  4  sum1 NUMBER(4) := 0;
+  5  BEGIN
+  6  WHILE num <= 5 LOOP
+  7
+  8  -- Display even number
+  9  dbms_output.Put_line(num);
+ 10
+ 11  -- Sum of even numbers
+ 12  sum1 := sum1 + num;
+ 13
+ 14  -- Next even number
+ 15  num := num + 2;
+ 16
+ 17
+ 18  -- End loop
+ 19  END LOOP;
+ 20
+ 21  -- Display even number
+ 22  dbms_output.Put_line('Sum of even numbers is ' || sum1);
+ 23  END;
+ 24 /
+
+2
+4
+Sum of even numbers is 6
+
+PL/SQL procedure successfully completed.
+________________________________________________________________________________________________________________
+q3)
+SQL> --To find the greatest number among given three numbers
+SQL> DECLARE
+  2  --a assigning with 46
+  3  a NUMBER := 46;
+  4  --b assigning with 67
+  5  b NUMBER := 67;
+  6  --c assigning with 21
+  7  c NUMBER := 21;
+  8  BEGIN
+  9  --block start
+ 10  --If condition start
+ 11  IF a > b
+ 12  AND a > c THEN
+ 13  --if a is greater then print a
+ 14  dbms_output.Put_line('Greatest number is '
+ 15  ||a);
+ 16  ELSIF b > a
+ 17  AND b > c THEN
+ 18  --if b is greater then print b
+ 19  dbms_output.Put_line('Greatest number is '
+ 20  ||b);
+ 21  ELSE
+ 22  --if c is greater then print c
+ 23  dbms_output.Put_line('Greatest number is '
+ 24  ||c);
+ 25  END IF;
+ 26  --end if condition
+ 27  END;
+ 28  /
+Greatest number is 67
+
+PL/SQL procedure successfully completed.
+_____________________________________________________________________________________________________________
+q4)
+SQL> DECLARE
+  2  n1 NUMBER := &num1;
+  3  BEGIN
+  4  -- test if the number provided by the user is even
+  5  IF MOD(n1,2) = 0 THEN
+  6  DBMS_OUTPUT.PUT_LINE ('The number. '||n1||
+  7  ' is even number');
+  8  ELSE
+  9  DBMS_OUTPUT.PUT_LINE ('The number '||n1||' is odd number.');
+ 10  END IF;
+ 11  DBMS_OUTPUT.PUT_LINE ('Done Successfully');
+ 12  END;
+ 13  /
+Enter value for num1: 5
+old   2: n1 NUMBER := &num1;
+new   2: n1 NUMBER := 5;
+The number 5 is odd number.
+Done Successfully
+
+PL/SQL procedure successfully completed.
+__________________________________________________________________________________________________________________
+SQL> declare
+  2  -- it gives the final answer after computation
+  3  fac number :=1;
+  4
+  5  -- given number n
+  6  -- taking input from user
+  7  n number := &1;
+  8
+  9  -- start block
+ 10  begin
+ 11
+ 12  -- start while loop
+ 13  while n > 0 loop
+ 14
+ 15  -- multiple with n and decrease n's value
+ 16  fac:=n*fac;
+ 17  n:=n-1;
+ 18  end loop;
+ 19  -- end loop
+ 20
+ 21  -- print result of fac
+ 22  dbms_output.put_line(fac);
+ 23
+ 24  -- end the begin block
+ 25  end;
+ 26  /
+Enter value for 1: 6
+old   7: n number := &1;
+new   7: n number := 6;
+720
+
+PL/SQL procedure successfully completed.
+_______________________________________________________________________________________________________________________________

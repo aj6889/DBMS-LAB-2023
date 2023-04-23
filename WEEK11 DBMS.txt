@@ -1,0 +1,156 @@
+Q1)
+
+SQL> 
+CREATE OR REPLACE PROCEDURE greetings
+    AS
+    BEGIN
+       dbms_output.put_line('Hello World!');
+    END;
+    /
+
+Procedure created.
+
+SQL> EXECUTE greetings
+Hello World!
+
+PL/SQL procedure successfully completed.
+_______________________________________________________________________________
+Q2)
+
+SQL>
+ CREATE OR REPLACE PROCEDURE findMin(x in number,y in number,z out number)
+  is
+  begin
+  if x<y then
+  z:=x;
+  else
+  z:=y;
+  end if;
+  end;
+  /
+
+Procedure created.
+
+SQL> 
+declare
+    a number;
+    b number;
+    c number;
+    begin
+     a:=23;
+     b:=45;
+     findMin(a,b,c);
+     dbms_output.put_line('MINIMUM is '||c);
+    end;
+   /
+MINIMUM is 23
+
+PL/SQL procedure successfully completed.
+____________________________________________________________________________________
+Q3)
+CREATE OR REPLACE PROCEDURE sqr(n IN NUMBER, res OUT NUMBER)
+IS 
+BEGIN
+    res:= n*n*n;
+    Dbms_Output.PUT_LINE(res);
+END;
+
+DECLARE
+      ans NUMBER;
+   BEGIN
+     sqr(15, ans);
+    END;
+____________________________________________________________________________________
+Q4)
+SQL> 
+DECLARE
+   s VARCHAR2(10) := 'abccba';
+   l VARCHAR2(20);
+  t VARCHAR2(10);
+  BEGIN
+  FOR i IN REVERSE 1..Length(s) LOOP
+  l := Substr(s, i, 1);
+  t := t||''||l;
+  END LOOP;
+ 
+   IF t = s THEN
+   dbms_output.Put_line(t||''||' is palindrome');
+   ELSE
+ dbms_output.Put_line(t||'' ||' is not palindrome');
+  END IF;
+  END;
+  /
+abccba is palindrome
+
+PL/SQL procedure successfully completed.
+______________________________________________________________________________
+Q5)
+SQL> SELECT * FROM DEPT;
+
+   DEPT_NO DNAME      DLOC
+---------- ---------- ----------
+       100 CSE        TP
+       110 MECH       MBLOCK
+       120 CIVIL      CBLOCK
+        40 ELEC       EBLOCK
+        50 BIOTECH    BIOBLOCK
+
+SQL> DELETE FROM DEPT WHERE DEPT_NO=50;
+
+1 row deleted.
+
+SQL> SELECT * FROM DEPT;
+
+   DEPT_NO DNAME      DLOC
+---------- ---------- ----------
+       100 CSE        TP
+       110 MECH       MBLOCK
+       120 CIVIL      CBLOCK
+        40 ELEC       EBLOCK
+________________________________________________________________________________
+qQ5)  better one
+
+SQL> select * from DEPT;
+
+   DEPT_NO DNAME      DLOC
+---------- ---------- ----------
+       100 CSE        TP
+       110 MECH       MBLOCK
+       120 CIVIL      CBLOCK
+        40 ELEC       EBLOCK
+        50 BIOTECH    BIOBLOCK
+
+
+SQL> CREATE OR REPLACE PROCEDURE delete_row (p_id IN NUMBER)
+  2  AS
+  3  BEGIN
+  4    DELETE FROM DEPT WHERE DEPT_NO = p_id;
+  5    COMMIT;
+  6    DBMS_OUTPUT.PUT_LINE('Row deleted successfully');
+  7  EXCEPTION
+  8    WHEN OTHERS THEN
+  9      DBMS_OUTPUT.PUT_LINE('Error: ' || SQLCODE || ' - ' || SQLERRM);
+ 10      ROLLBACK;
+ 11  END;
+ 12  /
+
+Procedure created.
+
+
+SQL> BEGIN
+  2    delete_row(50);
+  3  END;
+  4  /
+
+PL/SQL procedure successfully completed.
+
+SQL> SELECT * FROM DEPT;
+
+   DEPT_NO DNAME      DLOC
+---------- ---------- ----------
+       100 CSE        TP
+       110 MECH       MBLOCK
+       120 CIVIL      CBLOCK
+        40 ELEC       EBLOCK
+
+SQL>

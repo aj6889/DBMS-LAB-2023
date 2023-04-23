@@ -1,0 +1,151 @@
+1.	Write a pl/sql function recursive code for finding factorial of a number.
+
+SQL> DECLARE
+    num number;
+      factorial number;
+  
+    FUNCTION calculateFact(x number)
+   RETURN number
+    IS
+      f number;
+    BEGIN
+      IF x = 0 THEN
+         f := 1;
+      ELSE
+         f := x * calculateFact(x-1);
+      END IF;
+   RETURN f;
+  END;
+ 
+   BEGIN
+     num:= 6;
+     factorial := calculateFact(num);
+      DBMS_OUTPUT.PUT_LINE(' Factorial '|| num || ' is ' || factorial);
+   END;
+   /
+Factorial 6 is 720
+
+PL/SQL procedure successfully completed.
+ 
+____________________________________________________________________________________________________________
+2.	Write a pl/sql function for finding a number is a prime number.
+
+SQL> declare
+    n number;
+   i number;
+   flag number;
+  
+   begin
+   i:=2;
+    flag:=1;
+   n:=&n;
+ 
+   for i in 2..n/2
+   loop
+   if mod(n,i)=0
+   then
+   flag:=0;
+  exit;
+  end if;
+  end loop;
+ 
+  if flag=1
+  then
+   dbms_output.put_line('prime');
+  else
+   dbms_output.put_line('not prime');
+   end if;
+   end;
+   /
+Enter value for n: 17
+old   9: n:=&n;
+new   9: n:=17;
+prime
+
+PL/SQL procedure successfully completed
+________________________________________________________________________________________________
+q3)
+
+SQL> SELECT * FROM STUDENT ;
+
+       SNO SNAME      DEPT             CGPA
+---------- ---------- ---------- ----------
+       100 AADARSH    CSE                 9
+       101 VISHAL     CSE                 8
+       102 ISHAN      MECH                7
+       103 SHUBHAM    CSE                 8
+       104 VARUN      ELEC                9
+       105 VISHVESH   MECH                9
+       106 RAGHAV     MECH                9
+       107 ANINDYA    CSE                 9
+       108 SARVESH    MECH                8
+       109 ABHI       ELEC                9
+
+10 rows selected.
+
+SQL> CREATE OR REPLACE FUNCTION count_cse_students RETURN NUMBER
+   IS
+     cse_student_count NUMBER := 0;
+   BEGIN
+     SELECT COUNT(*) INTO cse_student_count FROM STUDENT WHERE dept = 'CSE';
+     RETURN cse_student_count;
+   END;
+   /
+
+Function created.
+
+SQL> SELECT count_cse_students() AS cse_student_count FROM dual;
+
+CSE_STUDENT_COUNT
+-----------------
+                4
+
+SQL> SELECT * FROM STUDENT WHERE DEPT ='CSE';
+
+       SNO SNAME      DEPT             CGPA
+---------- ---------- ---------- ----------
+       100 AADARSH    CSE                 9
+       101 VISHAL     CSE                 8
+       103 SHUBHAM    CSE                 8
+       107 ANINDYA    CSE                 9
+
+________________________________________________________________________________________________
+q4)
+
+SQL> CREATE OR REPLACE FUNCTION max_cgpa RETURN NUMBER
+   IS
+    max_cgpa_value NUMBER;
+   BEGIN
+     SELECT MAX(cgpa) INTO max_cgpa_value FROM STUDENT;
+     RETURN max_cgpa_value;
+   END;
+   /
+
+Function created.
+
+SQL> SELECT max_cgpa() AS max_cgpa FROM dual;
+
+  MAX_CGPA
+----------
+         9
+___________________________________________________________________________________________________
+q5)
+SQL> DECLARE
+   a NUMBER := 12;
+   b NUMBER := 14;
+ 
+   sumOf2 NUMBER;
+   avgOf2 NUMBER;
+   BEGIN
+   sumOf2 := a + b;
+   avgOf2 := sumOf2 /2;
+
+  dbms_output.Put_line('Average = '||avgOf2);
+  END;
+  /
+Average = 13
+
+PL/SQL procedure successfully completed.
+
+SQL>
+

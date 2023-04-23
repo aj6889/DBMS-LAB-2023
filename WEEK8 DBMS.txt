@@ -1,0 +1,149 @@
+
+SQL> SELECT * FROM EMP1;
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7369 SMITH      CLERK            7902 17-DEC-80        800          0
+        20
+
+      7499 ALLEN      SALESMAN         7698 20-FEB-81       1600        300
+        30
+
+      7521 WARD       SALESMAN         7698 22-FEB-81       1250        500
+        30
+
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7566 JONES      MANAGER          7839 02-APR-81       2975          0
+        20
+
+      7654 MARTIN     SALESMAN         7698 28-SEP-81       1250       1400
+        30
+
+      7698 BLAKE      MANAGER          7839 01-MAY-81       2850          0
+        30
+
+
+     EMPNO ENAME      JOB               MGR HIREDATE         SAL       COMM
+---------- ---------- ---------- ---------- --------- ---------- ----------
+    DEPTNO
+----------
+      7782 SCOTT      ANALYST          7566 19-APR-87       3000          0
+        20
+
+      7902 FORD       ANALYST          7566 03-DEC-81       3000          0
+        20
+
+
+8 rows selected.
+
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        40 OPERATIONS BOSTON
+        50 MANUFAC    BOSTON
+___________________________________________________________________________________________________________
+q1)
+SQL> SELECT ENAME FROM EMP1 WHERE SAL > (SELECT SAL FROM EMP1 WHERE EMPNO = 7566);
+
+ENAME
+----------
+SCOTT
+FORD
+___________________________________________________________________________________________________________________
+q2)
+SQL> SELECT ENAME FROM EMP1 WHERE JOB = (SELECT JOB FROM EMP1 WHERE EMPNO = 7369) AND SAL > (SELECT SAL FROM EMP1 WHERE EMPNO = 7876);
+
+ENAME
+----------
+MILLER
+_____________________________________________________________________________________________________________________
+q3)
+SQL> SELECT ENAME, JOB, SAL FROM EMP1 WHERE SAL = (SELECT MIN(SAL) FROM EMP1);
+
+ENAME      JOB               SAL
+---------- ---------- ----------
+SMITH      CLERK             800
+
+___________________________________________________________________________________________________________
+Q4)
+SQL> SELECT DEPTNO,MIN(SAL) FROM EMP1 WHERE SAL >(SELECT MIN(SAL) FROM EMP1 WHERE DEPTNO = 20) GROUP BY DEPTNO;
+
+    DEPTNO   MIN(SAL)
+---------- ----------
+        30       1250
+        20       2975
+___________________________________________________________________________________________________________
+Q5)
+SQL> SELECT EMPNO,ENAME,JOB FROM EMP1 WHERE JOB != 'CLERK' AND SAL<(SELECT MAX(SAL) FROM EMP1 WHERE JOB = 'CLERK');
+
+     EMPNO ENAME      JOB
+---------- ---------- ----------
+      7499 ALLEN      SALESMAN
+      7521 WARD       SALESMAN
+      7566 JONES      MANAGER
+      7654 MARTIN     SALESMAN
+      7698 BLAKE      MANAGER
+      7782 SCOTT      ANALYST
+      7902 FORD       ANALYST
+
+7 rows selected.
+____________________________________________________________________________________________
+Q6)
+SQL> SELECT EMPNO,ENAME,JOB FROM EMP1 WHERE SAL > (SELECT AVG(SAL) FROM EMP1);
+
+     EMPNO ENAME      JOB
+---------- ---------- ----------
+      7876 ADAMS      CLERK
+      7934 MILLER     CLERK
+      7566 JONES      MANAGER
+      7698 BLAKE      MANAGER
+      7782 SCOTT      ANALYST
+      7902 FORD       ANALYST
+
+6 rows selected.
+____________________________________________________________________________________________________
+Q7)
+SQL> SELECT ENAME,JOB FROM EMP1 WHERE 
+(SAL = (SELECT SAL FROM EMP1 WHERE ENAME = 'SCOTT') OR 
+SAL = (SELECT SAL FROM EMP1 WHERE ENAME='FORD')) AND 
+(ENAME !='SCOTT' OR ENAME !='FORD');
+
+ENAME      JOB
+---------- ----------
+TURNER     ANALYST
+ERIC       SALESMAN
+SCOTT      ANALYST
+FORD       ANALYST
+_____________________________________________________________________________________________________________
+Q8)
+SQL> SELECT ENAME,JOB,SAL FROM EMP1 WHERE JOB = (SELECT JOB FROM EMP1 WHERE ENAME = 'FORD') AND SAL = (SELECT SAL FROM EMP1 WHERE ENAME = 'FORD');
+
+ENAME      JOB               SAL
+---------- ---------- ----------
+TURNER     ANALYST          3000
+SCOTT      ANALYST          3000
+FORD       ANALYST          3000
+
+___________________________________________________________________________________________________________________
+Q9)
+SQL> SELECT ENAME,JOB,SAL FROM EMP1 WHERE 
+JOB = (SELECT JOB FROM EMP1 WHERE ENAME ='JONES') 
+AND SAL >(SELECT SAL FROM EMP1 WHERE ENAME = 'FORD');
+
+no rows selected
+
+______________________________________________________________________________________________________________
+Q10)
+SQL> SELECT ENAME,JOB FROM EMP1 WHERE DEPTNO=10 AND JOB = 'SALESMAN';
+
+no rows selected
+_________________________________________________________________________________________

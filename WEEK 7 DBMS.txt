@@ -1,0 +1,603 @@
+SQL> CREATE TABLE CUSTOMER(
+  2  CUST_ID NUMBER NOT NULL,
+  3  CUST_NAME VARCHAR(10) NOT NULL,
+  4  CITY VARCHAR(10) NOT NULL,
+  5  GRADE NUMBER NOT NULL,
+  6  SALES_ID NUMBER NOT NULL);
+
+Table created.
+
+SQL> INSERT INTO TABLE VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID);
+Enter value for cust_id: 3002
+Enter value for cust_name: NICK
+Enter value for city: NEW YORK
+Enter value for grade: 100
+Enter value for sales_id: 5001
+old   1: INSERT INTO TABLE VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID)
+new   1: INSERT INTO TABLE VALUES(3002,'NICK','NEW YORK',100,5001)
+INSERT INTO TABLE VALUES(3002,'NICK','NEW YORK',100,5001)
+            *
+ERROR at line 1:
+ORA-00903: invalid table name
+
+
+SQL> INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID);
+Enter value for cust_id: 3002
+Enter value for cust_name: NICK
+Enter value for city: NEW YORK
+Enter value for grade: 100
+Enter value for sales_id: 5001
+old   1: INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID)
+new   1: INSERT INTO CUSTOMER VALUES(3002,'NICK','NEW YORK',100,5001)
+
+1 row created.
+
+SQL> /
+Enter value for cust_id: 3007
+Enter value for cust_name: BRAD
+Enter value for city: NEW YORK
+Enter value for grade: 200
+Enter value for sales_id: 5001
+old   1: INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID)
+new   1: INSERT INTO CUSTOMER VALUES(3007,'BRAD','NEW YORK',200,5001)
+
+1 row created.
+
+SQL> /
+Enter value for cust_id: 3005
+Enter value for cust_name: GRAHAM
+Enter value for city: CALIFOR
+Enter value for grade: 200
+Enter value for sales_id: 5001
+old   1: INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID)
+new   1: INSERT INTO CUSTOMER VALUES(3005,'GRAHAM','CALIFOR',200,5001)
+
+1 row created.
+
+SQL> /
+Enter value for cust_id: 3008
+Enter value for cust_name: JULIAN
+Enter value for city: LONDON
+Enter value for grade: 300
+Enter value for sales_id: 5002
+old   1: INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID)
+new   1: INSERT INTO CUSTOMER VALUES(3008,'JULIAN','LONDON',300,5002)
+
+1 row created.
+
+SQL> /
+Enter value for cust_id: 3004
+Enter value for cust_name: FABIAN
+Enter value for city: PARIS
+Enter value for grade: 300
+Enter value for sales_id: 5006
+old   1: INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID)
+new   1: INSERT INTO CUSTOMER VALUES(3004,'FABIAN','PARIS',300,5006)
+
+1 row created.
+
+SQL> /
+Enter value for cust_id: 3009
+Enter value for cust_name: GEOFF
+Enter value for city: BERLIN
+Enter value for grade: 100
+Enter value for sales_id: 5003
+old   1: INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID)
+new   1: INSERT INTO CUSTOMER VALUES(3009,'GEOFF','BERLIN',100,5003)
+
+1 row created.
+
+SQL> /
+Enter value for cust_id: 3001
+Enter value for cust_name: GUZAN
+Enter value for city: LONDON
+Enter value for grade: 0
+Enter value for sales_id: 5005
+old   1: INSERT INTO CUSTOMER VALUES(&CUST_ID,'&CUST_NAME','&CITY',&GRADE,&SALES_ID)
+new   1: INSERT INTO CUSTOMER VALUES(3001,'GUZAN','LONDON',0,5005)
+
+1 row created.
+
+SQL> SELECT * FROM CUSTOMER;
+
+   CUST_ID CUST_NAME  CITY            GRADE   SALES_ID
+---------- ---------- ---------- ---------- ----------
+      3002 NICK       NEW YORK          100       5001
+      3007 BRAD       NEW YORK          200       5001
+      3005 GRAHAM     CALIFOR           200       5001
+      3008 JULIAN     LONDON            300       5002
+      3004 FABIAN     PARIS             300       5006
+      3009 GEOFF      BERLIN            100       5003
+      3001 GUZAN      LONDON              0       5005
+
+7 rows selected.
+
+SQL> CREATE TABLE SALESMAN(
+  2  SALES_ID NUMBER NOT NULL,
+  3  NAME VARCHAR(10) NOT NULL,
+  4  CITY VARCHAR(10) NOT NULL,
+  5  COMM NUMBER NOT NULL);
+
+Table created.
+
+SQL> INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY,&COMM);
+Enter value for sales_id: 5001
+Enter value for name: JAMES
+Enter value for city: NEW YORK
+Enter value for comm: 0.15
+old   1: INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY,&COMM)
+new   1: INSERT INTO SALESMAN VALUES(5001,'JAMES','NEW YORK,0.15)
+ERROR:
+ORA-01756: quoted string not properly terminated
+
+
+SQL> INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY',&COMM);
+Enter value for sales_id: 5001
+Enter value for name: JAMES
+Enter value for city: NEW YORK
+Enter value for comm: 0.15
+old   1: INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY',&COMM)
+new   1: INSERT INTO SALESMAN VALUES(5001,'JAMES','NEW YORK',0.15)
+
+1 row created.
+
+SQL> /
+Enter value for sales_id: 5002
+Enter value for name: NAIL
+Enter value for city: PARIS
+Enter value for comm: 0.13
+old   1: INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY',&COMM)
+new   1: INSERT INTO SALESMAN VALUES(5002,'NAIL','PARIS',0.13)
+
+1 row created.
+
+SQL> /
+Enter value for sales_id: 5005
+Enter value for name: PIT
+Enter value for city: LONDON
+Enter value for comm: 0.11
+old   1: INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY',&COMM)
+new   1: INSERT INTO SALESMAN VALUES(5005,'PIT','LONDON',0.11)
+
+1 row created.
+
+SQL> /
+Enter value for sales_id: 5006
+Enter value for name: MC LYON
+Enter value for city: PARIS
+Enter value for comm: 0.14
+old   1: INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY',&COMM)
+new   1: INSERT INTO SALESMAN VALUES(5006,'MC LYON','PARIS',0.14)
+
+1 row created.
+
+SQL> /
+Enter value for sales_id: 5007
+Enter value for name: PAUL
+Enter value for city: ROME
+Enter value for comm: 0.13
+old   1: INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY',&COMM)
+new   1: INSERT INTO SALESMAN VALUES(5007,'PAUL','ROME',0.13)
+
+1 row created.
+
+SQL> /
+Enter value for sales_id: 5003
+Enter value for name: LAUSON
+Enter value for city: SAN JOSE
+Enter value for comm: 0.12
+old   1: INSERT INTO SALESMAN VALUES(&SALES_ID,'&NAME','&CITY',&COMM)
+new   1: INSERT INTO SALESMAN VALUES(5003,'LAUSON','SAN JOSE',0.12)
+
+1 row created.
+
+SQL> SELECT * FROM SALESMAN;
+
+  SALES_ID NAME       CITY             COMM
+---------- ---------- ---------- ----------
+      5001 JAMES      NEW YORK          .15
+      5002 NAIL       PARIS             .13
+      5005 PIT        LONDON            .11
+      5006 MC LYON    PARIS             .14
+      5007 PAUL       ROME              .13
+      5003 LAUSON     SAN JOSE          .12
+
+6 rows selected.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> CREATE TABLE ORDER1(
+  2  ORD_NO NUMBER NOT NULL,
+  3  PURCH_AMT NUMBER NOT NULL,
+  4  ORD_DATE DATE NOT NULL,
+  5  CUST_ID NUMBER NOT NULL,
+  6  SALES_ID NUMBER NOT NULL);
+
+Table created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> INSERT INTO ORDER1 VALUES(
+  2  &ORD_NO, &PURCH_AMT, '&ORD_DATE', &CUST_ID,&SALES_ID);
+Enter value for ord_no: 70001
+Enter value for purch_amt: 150.5
+Enter value for ord_date: 5-OCT-2012
+Enter value for cust_id: 3005
+Enter value for sales_id: 5002
+old   2: &ORD_NO, &PURCH_AMT, '&ORD_DATE', &CUST_ID,&SALES_ID)
+new   2: 70001, 150.5, '5-OCT-2012', 3005,5002)
+
+1 row created.
+
+SQL> /
+Enter value for ord_no: 70009
+Enter value for purch_amt: 270.65
+Enter value for ord_date: 10-SEP-2012
+Enter value for cust_id: 3001
+Enter value for sales_id: 5005
+old   2: &ORD_NO, &PURCH_AMT, '&ORD_DATE', &CUST_ID,&SALES_ID)
+new   2: 70009, 270.65, '10-SEP-2012', 3001,5005)
+
+1 row created.
+
+SQL> /
+Enter value for ord_no: 70002
+Enter value for purch_amt: 65,26
+Enter value for ord_date:
+Enter value for cust_id:
+Enter value for sales_id:
+old   2: &ORD_NO, &PURCH_AMT, '&ORD_DATE', &CUST_ID,&SALES_ID)
+new   2: 70002, 65,26, '', ,)
+70002, 65,26, '', ,)
+                  *
+ERROR at line 2:
+ORA-00936: missing expression
+
+
+SQL> /
+Enter value for ord_no: 70002
+Enter value for purch_amt: 65.26
+Enter value for ord_date: 5-OCT-2012
+Enter value for cust_id: 3002
+Enter value for sales_id: 5001
+old   2: &ORD_NO, &PURCH_AMT, '&ORD_DATE', &CUST_ID,&SALES_ID)
+new   2: 70002, 65.26, '5-OCT-2012', 3002,5001)
+
+1 row created.
+
+SQL> /
+Enter value for ord_no: 70004
+Enter value for purch_amt: 110.5
+Enter value for ord_date: 17-AUG-2012
+Enter value for cust_id: 3009
+Enter value for sales_id: 5003
+old   2: &ORD_NO, &PURCH_AMT, '&ORD_DATE', &CUST_ID,&SALES_ID)
+new   2: 70004, 110.5, '17-AUG-2012', 3009,5003)
+
+1 row created.
+
+SQL> /
+Enter value for ord_no: 70007
+Enter value for purch_amt: 948.5
+Enter value for ord_date: 10-SEP-2012
+Enter value for cust_id: 305
+Enter value for sales_id: 5002
+old   2: &ORD_NO, &PURCH_AMT, '&ORD_DATE', &CUST_ID,&SALES_ID)
+new   2: 70007, 948.5, '10-SEP-2012', 305,5002)
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> SELECT * FROM ORDER1;
+
+    ORD_NO  PURCH_AMT ORD_DATE     CUST_ID   SALES_ID
+---------- ---------- --------- ---------- ----------
+     70001      150.5 05-OCT-12       3005       5002
+     70009     270.65 10-SEP-12       3001       5005
+     70002      65.26 05-OCT-12       3002       5001
+     70004      110.5 17-AUG-12       3009       5003
+     70007      948.5 10-SEP-12        305       5002
+_______________________________________________________________________________________________________________________________
+MAIN TABLE;
+
+
+SQL> SELECT * FROM CUSTOMER;
+
+   CUST_ID CUST_NAME  CITY            GRADE   SALES_ID
+---------- ---------- ---------- ---------- ----------
+      3002 NICK       NEW YORK          100       5001
+      3007 BRAD       NEW YORK          200       5001
+      3005 GRAHAM     CALIFOR           200       5001
+      3008 JULIAN     LONDON            300       5002
+      3004 FABIAN     PARIS             300       5006
+      3009 GEOFF      BERLIN            100       5003
+      3001 GUZAN      LONDON              0       5005
+
+7 rows selected.
+
+SQL> SELECT * FROM SALESMAN;
+
+  SALES_ID NAME       CITY             COMM
+---------- ---------- ---------- ----------
+      5001 JAMES      NEW YORK          .15
+      5002 NAIL       PARIS             .13
+      5005 PIT        LONDON            .11
+      5006 MC LYON    PARIS             .14
+      5007 PAUL       ROME              .13
+      5003 LAUSON     SAN JOSE          .12
+
+6 rows selected.
+
+SQL> SELECT * FROM ORDER1;
+
+    ORD_NO  PURCH_AMT ORD_DATE     CUST_ID   SALES_ID
+---------- ---------- --------- ---------- ----------
+     70001      150.5 05-OCT-12       3005       5002
+     70009     270.65 10-SEP-12       3001       5005
+     70002      65.26 05-OCT-12       3002       5001
+     70004      110.5 17-AUG-12       3009       5003
+     70007      948.5 10-SEP-12        305       5002
+     70008       5760 10-SEP-12       3002       5001
+     70010    1983.43 10-OCT-12       3004       5006
+     70003     2480.4 10-OCT-12       3009       5003
+     70012     250.45 27-JUN-12       3008       5002
+     70013     3045.6 25-APR-12       3002       5001
+
+10 rows selected.
+___________________________________________________________________________________________________________
+q1)
+
+SQL> SELECT SALESMAN.NAME,SALESMAN.CITY, CUSTOMER.CUST_NAME FROM SALESMAN
+  2  LEFT JOIN CUSTOMER
+  3  ON SALESMAN.CITY=CUSTOMER.CITY
+  4  ORDER BY SALESMAN.NAME;
+
+NAME       CITY       CUST_NAME
+---------- ---------- ----------
+JAMES      NEW YORK   NICK
+JAMES      NEW YORK   BRAD
+LAUSON     SAN JOSE
+MC LYON    PARIS      FABIAN
+NAIL       PARIS      FABIAN
+PAUL       ROME
+PIT        LONDON     GUZAN
+PIT        LONDON     JULIAN
+
+8 rows selected.
+____________________________________________________________________________________________________________
+Q2)
+SQL> SELECT CUSTOMER.CUST_NAME,CUSTOMER.CITY,SALESMAN.NAME,SALESMAN.COMM FROM SALESMAN
+  2  RIGHT JOIN CUSTOMER
+  3  ON SALESMAN.SALES_ID=CUSTOMER.SALES_ID
+  4  ORDER BY SALESMAN.SALES_ID;
+
+CUST_NAME  CITY       NAME             COMM
+---------- ---------- ---------- ----------
+NICK       NEW YORK   JAMES             .15
+BRAD       NEW YORK   JAMES             .15
+GRAHAM     CALIFOR    JAMES             .15
+JULIAN     LONDON     NAIL              .13
+GEOFF      BERLIN     LAUSON            .12
+GUZAN      LONDON     PIT               .11
+FABIAN     PARIS      MC LYON           .14
+
+7 rows selected.
+_______________________________________________________________________________________________________________
+Q3)
+SQL> SELECT * FROM SALESMAN A CROSS JOIN CUSTOMER B WHERE A.CITY IS NOT NULL AND B.GRADE IS NOT NULL
+  2  AND A.CITY<>B.CITY;
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5001 JAMES      NEW YORK          .15       3005 GRAHAM     CALIFOR
+       200       5001
+
+      5001 JAMES      NEW YORK          .15       3008 JULIAN     LONDON
+       300       5002
+
+      5001 JAMES      NEW YORK          .15       3004 FABIAN     PARIS
+       300       5006
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5001 JAMES      NEW YORK          .15       3009 GEOFF      BERLIN
+       100       5003
+
+      5001 JAMES      NEW YORK          .15       3001 GUZAN      LONDON
+         0       5005
+
+      5002 NAIL       PARIS             .13       3002 NICK       NEW YORK
+       100       5001
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5002 NAIL       PARIS             .13       3007 BRAD       NEW YORK
+       200       5001
+
+      5002 NAIL       PARIS             .13       3005 GRAHAM     CALIFOR
+       200       5001
+
+      5002 NAIL       PARIS             .13       3008 JULIAN     LONDON
+       300       5002
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5002 NAIL       PARIS             .13       3009 GEOFF      BERLIN
+       100       5003
+
+      5002 NAIL       PARIS             .13       3001 GUZAN      LONDON
+         0       5005
+
+      5005 PIT        LONDON            .11       3002 NICK       NEW YORK
+       100       5001
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5005 PIT        LONDON            .11       3007 BRAD       NEW YORK
+       200       5001
+
+      5005 PIT        LONDON            .11       3005 GRAHAM     CALIFOR
+       200       5001
+
+      5005 PIT        LONDON            .11       3004 FABIAN     PARIS
+       300       5006
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5005 PIT        LONDON            .11       3009 GEOFF      BERLIN
+       100       5003
+
+      5006 MC LYON    PARIS             .14       3002 NICK       NEW YORK
+       100       5001
+
+      5006 MC LYON    PARIS             .14       3007 BRAD       NEW YORK
+       200       5001
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5006 MC LYON    PARIS             .14       3005 GRAHAM     CALIFOR
+       200       5001
+
+      5006 MC LYON    PARIS             .14       3008 JULIAN     LONDON
+       300       5002
+
+      5006 MC LYON    PARIS             .14       3009 GEOFF      BERLIN
+       100       5003
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5006 MC LYON    PARIS             .14       3001 GUZAN      LONDON
+         0       5005
+
+      5007 PAUL       ROME              .13       3002 NICK       NEW YORK
+       100       5001
+
+      5007 PAUL       ROME              .13       3007 BRAD       NEW YORK
+       200       5001
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5007 PAUL       ROME              .13       3005 GRAHAM     CALIFOR
+       200       5001
+
+      5007 PAUL       ROME              .13       3008 JULIAN     LONDON
+       300       5002
+
+      5007 PAUL       ROME              .13       3004 FABIAN     PARIS
+       300       5006
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5007 PAUL       ROME              .13       3009 GEOFF      BERLIN
+       100       5003
+
+      5007 PAUL       ROME              .13       3001 GUZAN      LONDON
+         0       5005
+
+      5003 LAUSON     SAN JOSE          .12       3002 NICK       NEW YORK
+       100       5001
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5003 LAUSON     SAN JOSE          .12       3007 BRAD       NEW YORK
+       200       5001
+
+      5003 LAUSON     SAN JOSE          .12       3005 GRAHAM     CALIFOR
+       200       5001
+
+      5003 LAUSON     SAN JOSE          .12       3008 JULIAN     LONDON
+       300       5002
+
+
+  SALES_ID NAME       CITY             COMM    CUST_ID CUST_NAME  CITY
+---------- ---------- ---------- ---------- ---------- ---------- ----------
+     GRADE   SALES_ID
+---------- ----------
+      5003 LAUSON     SAN JOSE          .12       3004 FABIAN     PARIS
+       300       5006
+
+      5003 LAUSON     SAN JOSE          .12       3009 GEOFF      BERLIN
+       100       5003
+
+      5003 LAUSON     SAN JOSE          .12       3001 GUZAN      LONDON
+         0       5005
+
+
+36 rows selected.
+_____________________________________________________________________________________________________________________________
+Q4)
+SQL> SELECT A.CUST_NAME,A.CITY,B.NAME AS "SALESMAN", B.CITY FROM CUSTOMER A
+  2  RIGHT OUTER JOIN SALESMAN B
+  3  ON B.SALES_ID = A.SALES_ID
+  4  ORDER BY B.SALES_ID;
+
+CUST_NAME  CITY       SALESMAN   CITY
+---------- ---------- ---------- ----------
+NICK       NEW YORK   JAMES      NEW YORK
+BRAD       NEW YORK   JAMES      NEW YORK
+GRAHAM     CALIFOR    JAMES      NEW YORK
+JULIAN     LONDON     NAIL       PARIS
+GEOFF      BERLIN     LAUSON     SAN JOSE
+GUZAN      LONDON     PIT        LONDON
+FABIAN     PARIS      MC LYON    PARIS
+                      PAUL       ROME
+
+8 rows selected.
+____________________________________________________________________________________________________________________________
+Q5)
+SQL> SELECT A.CUST_NAME AS "CUSTOMER NAME", A.CITY, B.NAME AS "SALESMAN", B.COMM
+  2  FROM CUSTOMER A INNER JOIN SALESMAN B
+  3  ON A.SALES_ID = B.SALES_ID
+  4  WHERE B.COMM > .10;
+
+CUSTOMER N CITY       SALESMAN         COMM
+---------- ---------- ---------- ----------
+NICK       NEW YORK   JAMES             .15
+BRAD       NEW YORK   JAMES             .15
+GRAHAM     CALIFOR    JAMES             .15
+JULIAN     LONDON     NAIL              .13
+FABIAN     PARIS      MC LYON           .14
+GEOFF      BERLIN     LAUSON            .12
+GUZAN      LONDON     PIT               .11
+
+7 rows selected.
+___________________________________________________________________________________________________________________________

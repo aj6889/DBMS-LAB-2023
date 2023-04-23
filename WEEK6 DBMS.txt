@@ -1,0 +1,292 @@
+
+SQL> CREATE TABLE EMP1(EMPNO NUMBER NOT NULL,
+  2  ENAME VARCHAR(10) NOT NULL,
+  3  JOB VARCHAR(10) NOT NULL,
+  4  MGR NUMBER NOT NULL,
+  5  HIREDATE DATE NOT NULL,
+  6  SAL NUMBER NOT NULL,
+  7  COMM NUMBER,
+  8  DEPTNO NUMBER NOT NULL);
+
+Table created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> CREATE TABLE EMP1(EMPNO NUMBER NOT NULL,
+  2  ENAME VARCHAR(10) NOT NULL,
+  3  JOB VARCHAR(10) NOT NULL,
+  4  MGR NUMBER NOT NULL,
+  5  HIREDATE DATE NOT NULL,
+  6  SAL NUMBER NOT NULL,
+  7  COMM NUMBER,
+  8  DEPTNO NUMBER NOT NULL);
+
+Table created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL> INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO);
+Enter value for empno: 7369
+Enter value for ename: SMITH
+Enter value for job: CLERK
+Enter value for mgr: 7902
+Enter value for hiredate: 17-DEC-80
+Enter value for sal: 800
+Enter value for comm:
+Enter value for deptno: 20
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7369, 'SMITH', 'CLERK', 7902, '17-DEC-80',800, , 20)
+INSERT INTO EMP1 VALUES(7369, 'SMITH', 'CLERK', 7902, '17-DEC-80',800, , 20)
+                                                                       *
+ERROR at line 1:
+ORA-00936: missing expression
+
+
+SQL> INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO);
+Enter value for empno: 7369
+Enter value for ename: SMITH
+Enter value for job: CLERK
+Enter value for mgr: 7902
+Enter value for hiredate: 17-DEC-80
+Enter value for sal: 800
+Enter value for comm: 0
+Enter value for deptno: 20
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7369, 'SMITH', 'CLERK', 7902, '17-DEC-80',800, 0, 20)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 7499
+Enter value for ename: ALLEN
+Enter value for job: SALESMAN
+Enter value for mgr: 7698
+Enter value for hiredate: 20-FEB-81
+Enter value for sal: 1600
+Enter value for comm: 300
+Enter value for deptno: 30
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7499, 'ALLEN', 'SALESMAN', 7698, '20-FEB-81',1600, 300, 30)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 7521
+Enter value for ename: WARD
+Enter value for job: SALESMAN
+Enter value for mgr: 7698
+Enter value for hiredate: 22-FEB-81
+Enter value for sal: 1250
+Enter value for comm: 500
+Enter value for deptno: 30
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7521, 'WARD', 'SALESMAN', 7698, '22-FEB-81',1250, 500, 30)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 7566
+Enter value for ename: JONES
+Enter value for job: MANAGER
+Enter value for mgr: 7839
+Enter value for hiredate: 02-APR-81
+Enter value for sal: 2975
+Enter value for comm: 0
+Enter value for deptno: 20
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7566, 'JONES', 'MANAGER', 7839, '02-APR-81',2975, 0, 20)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 7654
+Enter value for ename: MARTIN
+Enter value for job: SALESMAN
+Enter value for mgr: 7698
+Enter value for hiredate: 28-SEP-81
+Enter value for sal: 1250
+Enter value for comm: 1400
+Enter value for deptno: 30
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7654, 'MARTIN', 'SALESMAN', 7698, '28-SEP-81',1250, 1400, 30)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 7698
+Enter value for ename: BLAKE
+Enter value for job: MANAGER
+Enter value for mgr: 7839
+Enter value for hiredate: 01-MAY-81
+Enter value for sal: 2850
+Enter value for comm: 0
+Enter value for deptno: 30
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7698, 'BLAKE', 'MANAGER', 7839, '01-MAY-81',2850, 0, 30)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 7782
+Enter value for ename: SCOTT
+Enter value for job: ANALYST 7566
+Enter value for mgr: 19-APR-87
+Enter value for hiredate: 3000
+Enter value for sal: 0
+Enter value for comm: 0
+Enter value for deptno: 20
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7782, 'SCOTT', 'ANALYST 7566', 19-APR-87, '3000',0, 0, 20)
+INSERT INTO EMP1 VALUES(7782, 'SCOTT', 'ANALYST 7566', 19-APR-87, '3000',0, 0, 20)
+                                                          *
+ERROR at line 1:
+ORA-00984: column not allowed here
+
+
+SQL> /
+Enter value for empno: 7782
+Enter value for ename: SCOTT
+Enter value for job: ANALYST
+Enter value for mgr: 7566
+Enter value for hiredate: 19-APR-87
+Enter value for sal: 3000
+Enter value for comm: 0
+Enter value for deptno: 20
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7782, 'SCOTT', 'ANALYST', 7566, '19-APR-87',3000, 0, 20)
+
+1 row created.
+
+SQL> /
+Enter value for empno: 7902
+Enter value for ename: FORD
+Enter value for job: ANALYST
+Enter value for mgr: 7566
+Enter value for hiredate: 03-DEC-81
+Enter value for sal: 3000
+Enter value for comm: 0
+Enter value for deptno: 20
+old   1: INSERT INTO EMP1 VALUES(&EMPNO, '&ENAME', '&JOB', &MGR, '&HIREDATE',&SAL, &COMM, &DEPTNO)
+new   1: INSERT INTO EMP1 VALUES(7902, 'FORD', 'ANALYST', 7566, '03-DEC-81',3000, 0, 20)
+
+1 row created.
+
+_____________________________________________________________________________________________________________________
+Q1)
+
+SQL> SELECT COUNT(*) FROM EMP1;
+
+  COUNT(*)
+----------
+         8
+
+__________________________________________________________________________________________________________________________________
+Q2)
+SQL> SELECT DISTINCT JOB FROM EMP1;
+
+JOB
+----------
+CLERK
+SALESMAN
+ANALYST
+MANAGER
+
+SQL> SELECT COUNT(DISTINCT JOB) FROM EMP1;
+
+COUNT(DISTINCTJOB)
+------------------
+                 4
+______________________________________________________________________________________________________________________________________
+Q3)
+SQL> SELECT COUNT(COMM) FROM EMP1;
+
+COUNT(COMM)
+-----------
+          8
+
+SQL> SELECT COUNT(NVL(COMM,0)) FROM EMP1;
+
+COUNT(NVL(COMM,0))
+------------------
+                 8
+
+The NVL function accepts two arguments: the first argument takes the name of the expression to be evaluated; 
+the second argument specifies the value that the function returns when the first argument evaluates to NULL. 
+If the first argument does not evaluate to NULL, the function returns the value of the first argument.
+_____________________________________________________________________________________________________________________________________________
+Q4)
+SQL> SELECT MAX(SAL) FROM EMP1;
+
+  MAX(SAL)
+----------
+      3000
+
+SQL> SELECT MIN(SAL) FROM EMP1;
+
+  MIN(SAL)
+----------
+       800
+
+SQL> SELECT AVG(SAL) FROM EMP1;
+
+  AVG(SAL)
+----------
+  2090.625
+
+___________________________________________________________________________________________________________________________________________
+Q5)
+SQL> SELECT ENAME,DEPTNO FROM EMP1 WHERE DEPTNO = 30;
+
+ENAME          DEPTNO
+---------- ----------
+ALLEN              30
+WARD               30
+MARTIN             30
+BLAKE              30
+
+___________________________________________________________________________________________________________________________________________
+Q6)
+SQL> SELECT ENAME,SAL FROM EMP1 WHERE JOB = 'CLERK' AND SAL=(SELECT MAX(SAL)FROM EMP1 WHERE JOB = 'CLERK');
+
+ENAME             SAL
+---------- ----------
+SMITH             800
+_____________________________________________________________________________________________________________________________________
+Q7)
+
+SQL> SELECT JOB, COUNT(MGR) FROM EMP1 GROUP BY JOB;
+
+JOB        COUNT(MGR)
+---------- ----------
+CLERK               1
+SALESMAN            3
+ANALYST             2
+MANAGER             2
+
+______________________________________________________________________________________________________________________________________
+Q8)
+SQL> SELECT JOB, SUM(SAL), MAX(SAL), MIN(SAL), AVG(SAL) FROM EMP1 GROUP BY JOB;
+
+JOB          SUM(SAL)   MAX(SAL)   MIN(SAL)   AVG(SAL)
+---------- ---------- ---------- ---------- ----------
+CLERK             800        800        800        800
+SALESMAN         4100       1600       1250 1366.66667
+ANALYST          6000       3000       3000       3000
+MANAGER          5825       2975       2850     2912.5
+
+______________________________________________________________________________________________________________________________________
+Q9)
+SQL> SELECT SUM(SAL), MAX(SAL), MIN(SAL), AVG(SAL) FROM EMP1 WHERE DEPTNO=20 GROUP BY DEPTNO;
+
+  SUM(SAL)   MAX(SAL)   MIN(SAL)   AVG(SAL)
+---------- ---------- ---------- ----------
+      9775       3000        800    2443.75
+
+_______________________________________________________________________________________________________________________________________
+Q10)
+
+
