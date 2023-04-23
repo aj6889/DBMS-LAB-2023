@@ -1,0 +1,196 @@
+q1)
+SQL> GRANT SELECT ON EMP TO RA2011026010076;
+
+Grant succeeded.
+
+SQL> COMMIT;
+
+Commit complete.
+
+-----------------------------------------------------------------------------
+Q2)
+
+SQL> REVOKE SELECT ON EMP FROM RA2011026010076;
+
+Revoke succeeded.
+
+SQL> COMMIT;
+
+Commit complete.
+____________________________________________________________________________________________
+q1)
+SQL> CREATE TABLE DEPT1(DEPTNO NUMBER(5) NOT NULL, DNAME VARCHAR(10) NOT NULL. LOC VARCHAR(10) NOT NULL);
+CREATE TABLE DEPT1(DEPTNO NUMBER(5) NOT NULL, DNAME VARCHAR(10) NOT NULL. LOC VARCHAR(10) NOT NULL)
+                                                                        *
+ERROR at line 1:
+ORA-00907: missing right parenthesis
+
+
+SQL> CREATE TABLE DEPT1(DEPTNO NUMBER(5) NOT NULL, DNAME VARCHAR(10) NOT NULL, LOC VARCHAR(10) NOT NULL);
+
+Table created.
+
+SQL> INSERT INTO DEPT1 VALUES(&DEPTNO,'&DNAME','&LOC');
+Enter value for deptno: 10
+Enter value for dname: ACCOUNTING
+Enter value for loc: NEW YORK
+old   1: INSERT INTO DEPT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPT1 VALUES(10,'ACCOUNTING','NEW YORK')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 20
+Enter value for dname: RESEARCH
+Enter value for loc: DALLAS
+old   1: INSERT INTO DEPT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPT1 VALUES(20,'RESEARCH','DALLAS')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 30
+Enter value for dname: SALES
+Enter value for loc: CHICAGO
+old   1: INSERT INTO DEPT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPT1 VALUES(30,'SALES','CHICAGO')
+
+1 row created.
+
+SQL> /
+Enter value for deptno: 40
+Enter value for dname: OPERATIONS
+Enter value for loc: BOSTON
+old   1: INSERT INTO DEPT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPT1 VALUES(40,'OPERATIONS','BOSTON')
+
+1 row created.
+
+
+SQL> /
+Enter value for deptno: 50
+Enter value for dname: MANUFAC
+Enter value for loc: BOSTON
+old   1: INSERT INTO DEPT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPT1 VALUES(50,'MANUFAC','BOSTON')
+
+1 row created.
+
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        30 SALES      CHICAGO
+        40 OPERATIONS BOSTON
+        50 MANUFAC    BOSTON
+
+SQL> COMMIT;
+
+Commit complete.
+
+----------------------------------------------------------------------------------------
+Q2)
+SQL> UPDATE DEPT1 SET LOC='SANFRANC' WHERE DEPTNO = 40;
+
+1 row updated.
+
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        30 SALES      CHICAGO
+        40 OPERATIONS SANFRANC
+        50 MANUFAC    BOSTON
+
+--------------------------------------------------------------------------------------------
+Q3)
+Rollback complete.
+
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        30 SALES      CHICAGO
+        40 OPERATIONS BOSTON
+        50 MANUFAC    BOSTON
+
+--------------------------------------------------------------------------------------------------
+Q4)
+SQL> DELETE FROM DEPT1 WHERE LOC ='CHICAGO';
+
+1 row deleted.
+
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        40 OPERATIONS BOSTON
+        50 MANUFAC    BOSTON
+
+-----------------------------------------------------------------------------------------------------
+Q5)
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        40 OPERATIONS BOSTON
+        50 MANUFAC    BOSTON
+_________________________-----------------------------------------------------------------------------
+Q6)
+SQL> SAVEPOINT UPDATE_OVER;
+
+Savepoint created.
+
+---------------------------------------------------------------------------------------------------
+Q7)
+SQL> INSERT INTO DEPT1 VALUES(&DEPTNO,'&DNAME','&LOC');
+Enter value for deptno: 60
+Enter value for dname: ELECT
+Enter value for loc: INDIA
+old   1: INSERT INTO DEPT1 VALUES(&DEPTNO,'&DNAME','&LOC')
+new   1: INSERT INTO DEPT1 VALUES(60,'ELECT','INDIA')
+
+1 row created.
+------------------------------------------------------------------------------------------------------------
+Q8)
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        40 OPERATIONS BOSTON
+        50 MANUFAC    BOSTON
+        60 ELECT      INDIA
+
+--------------------------------------------------------------------------------------------------------------------
+Q9)
+SQL> SAVEPOINT UPDATE_ANOTHER;
+
+Savepoint created.
+
+---------------------------------------------------------------------------------------------------------------
+Q10)
+SQL> ROLLBACK TO UPDATE_OVER;
+
+Rollback complete.
+
+SQL> SELECT * FROM DEPT1;
+
+    DEPTNO DNAME      LOC
+---------- ---------- ----------
+        10 ACCOUNTING NEW YORK
+        20 RESEARCH   DALLAS
+        40 OPERATIONS BOSTON
+        50 MANUFAC    BOSTON
+
